@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <title>{% block title %}Chatbot!{% endblock %}</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .navbar-middle {
+      text-align: center;
+      background-color: #333;
+      padding: 20px 0;
+    }
+
+    .navbar-middle p {
+      color: white;
+      font-size: 24px;
+      margin: 0 0 10px 0;
+      font-weight: bold;
+    }
+
+    .navbar-middle nav {
+      display: inline-block;
+    }
+
+    .navbar-middle nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .navbar-middle nav a:hover {
+      background-color: #575757;
+      border-radius: 4px;
+    }
+
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar-middle">
+    <p>Welcome</p>
+    <nav>
+      <a href="{{ url_for('rule_based') }}">Rule-based</a>
+      <a href="{{ url_for('retrieval_based') }}">Retrieval-based</a>
+      <a href="{{ url_for('llm_api') }}">LLM API</a>
+      <a href="{{ url_for('local_llm') }}">Local LLM</a>
+      <a href="{{ url_for('fine_tuned') }}">Fine-tuned Model</a>
+      <a href="{{ url_for('rag_based') }}">RAG-based Chatbot</a>
+    </nav>
+  </div>
+
+  <div class="content">
+
+    <div id="chatbox"
+      style="
+      height: 500px;
+      width: 300px;
+      background-color: rgb(207, 202, 202);
+      color:#035e73;
+      border-radius: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      ">
+
+      <div 
+        style="
+        background-color: #035e73;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border-start-end-radius: 10px;
+        font-size: 20px;
+        ">ChatBot
+      </div>
+
+      <div 
+        id="chat-messages"
+        style="
+        height: 375px;
+        overflow-y: scroll;
+        width: auto;
+        padding: 15px;
+        ">
+        <p>Bot: Hey! How can I help You</p>
+      </div>
+
+      
+      <input 
+        type="text" id="user-input" onkeypress ="handlekeypress(event)"
+        placeholder="Enter Your Text Here"
+        onkeypress="handlekeypress(event)"
+        style="
+        width: 88%;
+        bottom: 30px;
+        padding: 16px;">
+
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+  </div>
+
+</body>
+</html>
