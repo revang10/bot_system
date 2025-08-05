@@ -19,16 +19,23 @@
       appendMessage("You", message);
       userInput.value = ""; // Clear input box
 
-      // Send message to Flask backend
-      axios.post("/chat/rule-based", {
-        "user-input": message
-      }, {
+      // Send message to Flask backend using fetch
+      fetch("/chat/rule-based", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'  // ✅ Explicitly tell Flask it's JSON
-        }
+          'Content-Type': 'application/json' // ✅ Tell Flask we're sending JSON
+        },
+        body: JSON.stringify({ message: message })
+        // ✅ Wrap message in JSON
       })
         .then(response => {
-          const botReply = response.data.response;
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(data => {
+          const botReply = data.response;
           appendMessage("Bot", botReply);
         })
         .catch(error => {
@@ -46,6 +53,7 @@
     chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
   }
 </script>
+
 
 
 
