@@ -21,6 +21,8 @@ def rule_based():
 
 
 # RETRIEVAL BASED ROUTE
+
+
 @app.route('/retrieval-based')
 def retrieval_based():
     return render_template('retrieval_based.html')
